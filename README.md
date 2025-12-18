@@ -8,7 +8,7 @@ This repo includes codes to analyze
 
 ---
 
-## data
+## Data
 The raw data can be downloaded on GEO accession number (GSE##).
 The genotype data used for sc-eQTL mapping can be found on dBGap under accession: phs##.
 
