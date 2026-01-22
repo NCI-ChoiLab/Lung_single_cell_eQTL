@@ -1,10 +1,16 @@
 # Single-cell eQTL from Asian never-smokers lung tissues
 
-This repo includes codes to analyze 
+This repo includes codes to analyze data for our sc-eQTL dataset as part of the manuscript: "Single-cell lung eQTL dataset of Asian never-smokers highlights the roles of alveolar cells in lung cancer etiology". 
+
+To browse gene expression alongside eQTL results across lung cell types please visit 
 
 ---
 
 ## Analysis
+
+###Cell annotation
+
+sc-eQTL
 
 ---
 
