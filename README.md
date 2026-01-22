@@ -8,7 +8,7 @@ To browse gene expression alongside eQTL results across lung cell types please v
 
 ## Analysis
 
-###Cell annotation
+[Cell Annotation](https://github.com/ttluong1/Lung_single_cell_eQTL/tree/main/Cell%20annotation)
 
 sc-eQTL
 
