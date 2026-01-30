@@ -1,0 +1,23 @@
+#!/bin/sh
+# swarm --module R -g 100 --time 1-00:00:00 run_fun_mashr_apply_chunk_10K.swarm
+
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 0
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 50
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 100
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 150
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 200
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 250
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 300
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 350
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 400
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 450
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 500
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 550
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 600
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 650
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 700
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 750
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 800
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 850
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 900
+Rscript /data/Choi_lung/TTL/tensor/mashr/h5_output_Sum_Final_chr_pos/FDR/fun_mashr_apply_chunk.R -cn 1000 -rn 10 -ch 950
