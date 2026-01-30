@@ -14,7 +14,7 @@ Our process for cell type annotation including preprocessing, QC, and subcluster
 
 [Single-cell](https://github.com/ttluong1/Lung_single_cell_eQTL/tree/main/Single-cell)
 
-Analyses following cell type annotation including pseudo-bulked single-cell eQTL mapping using [TensorQTL](https://github.com/broadinstitute/tensorqtl), effect size harmonization via [mashr](https://github.com/stephenslab/mashr), and gene regulatory network ([SCENIC](https://github.com/aertslab/SCENIC)) and int-eQTL analysis incorporating pseudotime from [Monocle3](https://cole-trapnell-lab.github.io/monocle3/). 
+Analyses following cell type annotation including pseudo-bulked single-cell eQTL mapping using [TensorQTL](https://github.com/broadinstitute/tensorqtl), effect size harmonization via [mashr](https://github.com/stephenslab/mashr), and gene regulatory network ([SCENIC](https://github.com/aertslab/SCENIC)) and int-eQTL analyses incorporating pseudotime from [Monocle3](https://cole-trapnell-lab.github.io/monocle3/). 
 
 [GWAS Integration](https://github.com/ttluong1/Lung_single_cell_eQTL/tree/main/GWAS%20Integration)
 
