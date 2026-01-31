@@ -18,7 +18,7 @@ Analyses following cell type annotation including pseudo-bulked single-cell eQTL
 
 [GWAS Integration](https://github.com/NCI-ChoiLab/Lung_single_cell_eQTL/tree/main/GWAS%20Integration)
 
-Nomination of susceptiblity genes from East Asian and multi-ancestry GWAS summary statistics, Shi et al (PMID: 37236969) Byun et al (PMID: 35915169), was done using [coloc](https://chr1swallace.github.io/coloc/) and [TWAS](http://gusevlab.org/projects/fusion/) (Shi et al summmary statistics only).
+Nomination of susceptiblity genes from East Asian and multi-ancestry GWAS summary statistics, Shi et al (PMID: 37236969) and Byun et al (PMID: 35915169), respectively, was done using [coloc](https://chr1swallace.github.io/coloc/) and [TWAS](http://gusevlab.org/projects/fusion/) (Shi et al summary statistics only).
 
 [Figures](https://github.com/NCI-ChoiLab/Lung_single_cell_eQTL/tree/main/Figures)
 
