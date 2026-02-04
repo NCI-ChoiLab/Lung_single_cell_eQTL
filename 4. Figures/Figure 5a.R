@@ -25,6 +25,10 @@ colnames(epi_pseudotime)[1] = 'pseudotime'
 #subsetting to just include the three relevant cell types
 time_alv = subset(epi_pseudotime, ct %in% c('Alveolar Transitional Cells', 'AT2', 'AT1'))
 
+#removing cells with infinite pseudotime values
+time_alv_finite = subset(time_alv, pseudotime != 'Inf')
+#pseudotime values
+time_alv_finite$pseudotime = as.numeric(time_alv_finite$pseudotime)
 
 #subsetting our initial "object" to only keep cells of interest
 cds_sub = cds[,rownames(time_alv_finite)]
@@ -33,10 +37,6 @@ umap_coords <- reducedDims(cds_sub_r)$UMAP
 colnames(umap_coords) = c('UMAP1','UMAP2')
 umap_coords = umap_coords[rownames(time_alv_finite),]
 
-#removing cells with infinite pseudotime values
-time_alv_finite = subset(time_alv, pseudotime != 'Inf')
-#pseudotime values
-time_alv_finite$pseudotime = as.numeric(time_alv_finite$pseudotime)
 
 time_alv_finite = cbind(time_alv_finite,umap_coords)
 time_alv_finite %>%
