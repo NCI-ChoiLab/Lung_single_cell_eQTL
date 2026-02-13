@@ -27,7 +27,7 @@ Codes used to generate figures in our manuscript.
 ---
 
 ## Data
-The raw sequencing data alongside final Seurat object can be downloaded on GEO accession number (GSE##).
+The raw sequencing data alongside final Seurat object can be downloaded on GEO under accession: GSE319381.
 The genotype data used for sc-eQTL mapping can be found on dBGap under accession: phs004420.
 
 ----
