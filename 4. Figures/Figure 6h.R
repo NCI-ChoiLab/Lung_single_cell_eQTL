@@ -35,7 +35,7 @@ get_matrix = function(s){
   sce2 = SingleCellExperiment(assays = list(counts = counts),
                               colData = meta)
   
-  sce2$orig.ident = factor(sce2$Sample)
+  sce2$Sample = factor(sce2$Sample)
   e = sce2
   #telling what to aggregate by
   groups = colData(e)[, c('Sample')]
@@ -76,13 +76,7 @@ get_deg = function(mat){
 
 at2_deg = get_deg(at2_matrix)
 
-
-#saveRDS(rel_deg, 'rel_deg.rds')
-#saveRDS(alv_deg, 'alv_deg.rds')
 #saveRDS(at2_deg,'at2_deg.rds')
-#saveRDS(alv_cells_deg, 'alv_cells_deg.rds')
-#saveRDS(sec_deg,'sec_deg.rds')
-
 
 save_deg = function(lung.expr, f){
   up.genes <- lung.expr[lung.expr$log2FoldChange > .5 & lung.expr$padj < 0.05, ]
@@ -93,7 +87,7 @@ save_deg = function(lung.expr, f){
 }
 
 
-save_deg(at2_deg, 'pseudobulk_at2_deg.tsv')
+#save_deg(at2_deg, 'pseudobulk_at2_deg.tsv')
 
 
 
@@ -139,12 +133,4 @@ edo2 <- gseDO(at2_path)
 t = gseaplot2(edo, geneSetID = c('WP2857','WP2853','WP428','WP3651','WP4336'), pvalue_table = F, base_size = 5)
 plot_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_6/'
 ggsave(filename=file.path(plot_dir, 'TCFL72_NES.pdf'), plot = t, width = 80, height = 50, units = "mm", dpi = 450, device = 'pdf')
-
-edox = setReadable()
-
-path = as.data.frame(at2_path) 
-
-path[which(path$NES > 1),] #pathways enriched for upregulated lung cancer genes
-path[which(path$NES < -1),] #pathways enriched for downregulated lung cancer genes
-
 
