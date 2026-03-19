@@ -55,7 +55,7 @@ t = ggplot(data=dist_df, aes(x=Distance, group=Exclusive, fill=Exclusive)) +
 
 plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_3/'
 
-ggsave(filename = file.path(plot_save_dir, 'Figure_3c.png'), plot = t, width = 65, height = 45, units = "mm", dpi = 450, device = 'png')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3e.png'), plot = t, width = 65, height = 45, units = "mm", dpi = 450, device = 'png')
 
 print_dist = function(d){
   dist = subset(d, Distance < 100 & Distance > -100)
