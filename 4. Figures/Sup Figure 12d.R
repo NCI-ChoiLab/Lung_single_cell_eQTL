@@ -117,11 +117,9 @@ library(enrichplot)
 library(DOSE)
 
 edo <- pairwise_termsim(at2_path)
-emapplot(edo)
-
-
-edo2 <- gseDO(at2_path)
+#emapplot(edo)
+#edo2 <- gseDO(at2_path)
 
 t = gseaplot2(edo, geneSetID = c('WP111','WP623','WP477','WP4324','WP4396'), pvalue_table = F, base_size = 5)
-plot_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_6/'
+plot_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Sup_Figs/'
 ggsave(filename=file.path(plot_dir, 'ROS1_NES.pdf'), plot = t, width = 80, height = 50, units = "mm", dpi = 450, device = 'pdf')
