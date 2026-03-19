@@ -125,12 +125,53 @@ library(enrichplot)
 library(DOSE)
 
 edo <- pairwise_termsim(at2_path)
-emapplot(edo)
 
-
-edo2 <- gseDO(at2_path)
+#emapplot(edo)
+#edo2 <- gseDO(at2_path)
 
 t = gseaplot2(edo, geneSetID = c('WP2857','WP2853','WP428','WP3651','WP4336'), pvalue_table = F, base_size = 5)
 plot_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_6/'
 ggsave(filename=file.path(plot_dir, 'TCFL72_NES.pdf'), plot = t, width = 80, height = 50, units = "mm", dpi = 450, device = 'pdf')
+
+data = as.data.frame(edo)
+data = subset(data, ID %in% c('WP2857','WP2853','WP428','WP3651','WP4336'))
+
+data$log_FDR = -log10(data$qvalue)
+data = data[order(data$log_FDR),]
+data$Description = factor(data$Description, levels = c('ncRNAs in Wnt signaling in hepatocellular carcinoma',
+                                                       'Pathways affected in adenoid cystic carcinoma','Wnt signaling',
+                                                       'Mesodermal commitment pathway','Endoderm differentiation'
+                                                       ))
+t2 = ggplot()+
+  geom_point(data, mapping = aes(x= NES, y= Description, color = Description, size=log_FDR)) +
+  scale_colour_manual(guide = 'none', values = c('Endoderm differentiation' = "indianred3", 'Mesodermal commitment pathway' = "darkolivegreen3", 
+                                 'ncRNAs in Wnt signaling in hepatocellular carcinoma' = "seagreen3", 'Pathways affected in adenoid cystic carcinoma' = "turquoise4",
+                                 'Wnt signaling' = 'mediumorchid3'))  +
+  scale_size(range = c(.5,3),limits=c(3,8),breaks=c(3,4,7),labels=c(">=3",'>=4','>=7'),guide="legend", name = '-Log10(FDR)') + 
+  labs(y = "Gene Set", x = "Normalized Enrichment Score", fill = "NES") +
+  scale_x_continuous(limits = c(1.9, 2.2)) +
+  scale_y_discrete(labels= c('ncRNAs in Wnt signaling \n in hepatocellular carcinoma',
+                            'Pathways affected in \n adenoid cystic carcinoma','Wnt signaling',
+                            'Mesodermal \n commitment pathway','Endoderm differentiation')) +
+  ggtitle('') +
+  theme(text = element_text(family = 'Arial'),
+        axis.text=element_text(size=5.5),
+        axis.title.x = element_text(color = "black", size = 6, angle = 0, hjust = .5, vjust = .5, face = "plain"),
+        axis.title.y = element_text(color = "black", size = 6, angle = 90, hjust = .5, vjust = .5, face = "plain"),
+        legend.key.size = unit(2, 'mm'),
+        legend.text = element_text(size = 5),
+        legend.title = element_text(size = 6),
+        legend.box.spacing = unit(3, "pt"), 
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), 
+        panel.background = element_rect(fill = 'white', colour = 'black', linetype = 'solid'),
+        legend.key = element_rect(color = NA, fill = NA))
+
+
+ggsave(filename=file.path(plot_dir, 'TCFL72_bubble.png'), plot = t2, width = 80, height = 60, units = "mm", dpi = 450, device = 'png')
+
+
+
+
+
+
 
