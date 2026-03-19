@@ -89,7 +89,7 @@ c(w, h)
 
 
 
-png('/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_3/Figure_3e.png', w = w, h = h, units = 'in', res = 450)
+png('/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_3/Figure_3h.png', w = w, h = h, units = 'in', res = 450)
 Heatmap(top_sig_mashr, col = clrs, name = 'Proportion Shared', 
         column_names_rot = 45, show_row_dend = F, row_names_side = 'left', width = unit(70,'mm'), height = unit(65,'mm'),
         row_names_gp = gpar(fontsize = 6, col = c(rep('green',8),rep('blue',13),rep('purple',7),rep('orange',5))),
