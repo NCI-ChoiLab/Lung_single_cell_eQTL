@@ -74,7 +74,7 @@ eQTL_plot_pub <- function(celltype,rs,transcript,gene_name,p,b){
 
 p1 = eQTL_plot_pub('AT2','chr7_113878379_C_A','ENSG00000128573','FOXP2','7.84e-06')
 plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_2/'
-ggsave(filename = file.path(plot_save_dir, 'Figure_2d1.png'), plot = p1, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
+ggsave(filename = file.path(plot_save_dir, 'Figure_2g1.png'), plot = p1, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
 
 
 
@@ -82,5 +82,5 @@ ggsave(filename = file.path(plot_save_dir, 'Figure_2d1.png'), plot = p1, width =
 eQTL_plot_pub('AT1','chr7_113878379_C_A','ENSG00000128573','FOXP2',)
 
 p2 = eQTL_plot_pub('Alv_trans','chr10_81834717_G_A','ENSG00000185737','NRG3','8.53e-07')
-ggsave(filename = file.path(plot_save_dir, 'Figure_2d2.png'), plot = p2, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
+ggsave(filename = file.path(plot_save_dir, 'Figure_2g2.png'), plot = p2, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
 eQTL_plot_pub('Sec_trans','chr10_81834717_G_A','ENSG00000185737','NRG3')
