@@ -41,9 +41,9 @@ lmo2_t = lmo2 + theme(axis.ticks.y = element_blank(),axis.ticks.x = element_blan
 plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_3/'
 
 
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d1.1.pdf'), plot = lmo2_t, width = 90, height = 150, units = "mm", dpi = 450, device = 'pdf')
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d2.1.pdf'), plot = expr_plot, width = 60, height = 150, units = "mm", dpi = 450, device = 'pdf')
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d3.1.pdf'), plot = gene_plot, width = 60, height = 50, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3f1.1.pdf'), plot = lmo2_t, width = 90, height = 150, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3f2.1.pdf'), plot = expr_plot, width = 60, height = 150, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3f3.1.pdf'), plot = gene_plot, width = 60, height = 50, units = "mm", dpi = 450, device = 'pdf')
 
 #rs3138486
 CoveragePlot(multiome, region = 'chr9-89603007-89607153', extend.upstream = 1000, extend.downstream = 1000,
@@ -74,18 +74,8 @@ gadd45g_t = gadd45g + theme(axis.ticks.y = element_blank(),axis.ticks.x = elemen
 plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_3/'
 
 
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d1.2.pdf'), plot = gadd45g_t, width = 90, height = 150, units = "mm", dpi = 450, device = 'pdf')
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d2.2.pdf'), plot = expr_plot, width = 60, height = 150, units = "mm", dpi = 450, device = 'pdf')
-ggsave(filename = file.path(plot_save_dir, 'Figure_3d3.2.pdf'), plot = gene_plot, width = 60, height = 50, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3g1.2.pdf'), plot = gadd45g_t, width = 90, height = 150, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3g2.2.pdf'), plot = expr_plot, width = 60, height = 150, units = "mm", dpi = 450, device = 'pdf')
+ggsave(filename = file.path(plot_save_dir, 'Figure_3g3.2.pdf'), plot = gene_plot, width = 60, height = 50, units = "mm", dpi = 450, device = 'pdf')
 
-
-#rs6489721
-CoveragePlot(multiome, region = 'chr12-6533220-6535753', extend.upstream = 1000, extend.downstream = 1000,
-             region.highlight = StringToGRanges(c('chr12-6534140-6534160')),
-             features = 'GAPDH',assay = 'peaks', expression.assay = 'SCT', peaks = TRUE, links = TRUE)
-
-#rs3741918
-CoveragePlot(multiome, region = 'chr12-6533220-6535753', extend.upstream = 1000, extend.downstream = 1000,
-             region.highlight = StringToGRanges(c('chr12-6535080-6535100')),
-             features = 'GAPDH',assay = 'peaks', expression.assay = 'SCT', peaks = TRUE, links = TRUE)
 
