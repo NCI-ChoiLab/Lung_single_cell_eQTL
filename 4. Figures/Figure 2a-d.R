@@ -175,7 +175,7 @@ melt_and_graph = function(d,l){
 
 # Call the function with your data
 t = melt_and_graph(data, 800)
-ggsave(filename = file.path(plot_save_dir, 'Figure_2c.png'), plot = t, width = 110, height = 50, units = "mm", dpi = 300, device = 'png')
+ggsave(filename = file.path(plot_save_dir, 'Figure_2d.png'), plot = t, width = 110, height = 50, units = "mm", dpi = 300, device = 'png')
 
 
 
