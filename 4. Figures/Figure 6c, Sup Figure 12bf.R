@@ -73,7 +73,7 @@ eQTL_plot_pub <- function(celltype,rs,transcript,gene_name,p,b){
 }
 
 p3 = eQTL_plot_pub('AT2','chr6_117464145_A_T','ENSG00000047936','ROS1','6.23e-08')
-plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_6/'
+plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Sup_Figs/'
 ggsave(filename = file.path(plot_save_dir, 'ROS1_box.png'), plot = p3, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
 
 p4 = eQTL_plot_pub('AT2','chr10_112749531_T_C','ENSG00000148737','TCF7L2','1.43e-05')
