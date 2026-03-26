@@ -77,4 +77,5 @@ plot_save_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Sup_Figs/
 ggsave(filename = file.path(plot_save_dir, 'ROS1_box.png'), plot = p3, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
 
 p4 = eQTL_plot_pub('AT2','chr10_112749531_T_C','ENSG00000148737','TCF7L2','1.43e-05')
+plot_dir = '/data/Choi_lung/TTL/Figs_for_manuscript/Final_Figures/Fig_6/'
 ggsave(filename = file.path(plot_save_dir, 'tcf7l2_box.png'), plot = p4, width = 60, height = 60, units = "mm", dpi = 300, device = 'png')
