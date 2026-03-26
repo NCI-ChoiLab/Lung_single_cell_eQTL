@@ -168,7 +168,7 @@ graph_plot = function(e){
 }
 graph_plot2 = function(e){
   p= ggplot(e, aes(x=time, y=mean, colour=Target.Cell, group=Target.Cell)) +
-    geom_line(aes(colour=Target.Cell), size = 1) +
+    geom_line(aes(colour=Target.Cell), size = .25) +
     geom_ribbon(aes(ymin = mean - se, ymax = mean + se, fill = Target.Cell), size = .1, show.legend = F, alpha = .8) +
     # scale_colour_discrete(name = "class") +
     scale_color_manual(values=c("#FBB4AE", "#E41A1C", "#B3CDE3", "#377EB8")) + # red and blue
@@ -179,7 +179,7 @@ graph_plot2 = function(e){
     theme_bw() +
     theme(panel.border = element_rect(linetype = "solid",
                                       colour = "black", size = 0.25),
-          legend.position = "right",
+          legend.position = "none",
           axis.line.x = element_line(size = 0.25, colour = "black"),
           axis.line.y = element_line(size = 0.25, colour = "black"),
           axis.line = element_line(size = 1, color = "black"),
@@ -189,53 +189,39 @@ graph_plot2 = function(e){
           panel.grid.minor = element_blank(),
           panel.background = element_rect(fill = "white",
                                           size = 0, colour = "black"),
-          axis.text.x = element_text(colour = "black", size = 12), 
-          axis.text.y = element_text(colour = "black", size = 12),
-          axis.title.x = element_text(colour = "black", face = "plain", size = 14,
+          axis.text.x = element_text(colour = "black", size = 6), 
+          axis.text.y = element_text(colour = "black", size = 6),
+          axis.title.x = element_text(colour = "black", face = "plain", size = 7,
                                       margin = margin(10,0,0,0)),
-          axis.title.y = element_text(colour = "black", face = "plain", size = 14,
+          axis.title.y = element_text(colour = "black", face = "plain", size = 7,
                                       margin = margin(0,10,0,0)))
   p 
 }
-exp1 = make_df('Attempt_1')
-graph_plot(exp1)
+
 
 exp2 = make_df('Attempt_2')
-graph_plot(exp2)
-graph_plot2(exp2)
+#graph_plot(exp2)
+#graph_plot2(exp2)
 
 exp3 = make_df('Attempt_3')
-graph_plot(exp3)
-graph_plot2(exp3)
-
-exp4 = make_df('Attempt_4')
-graph_plot(exp4)
+#graph_plot(exp3)
+#graph_plot2(exp3)
 
 exp5 = make_df('Attempt_5')
-graph_plot(exp5)
-graph_plot2(exp5)
+#graph_plot(exp5)
+#graph_plot2(exp5)
 
 
 exp2 = subset(exp2, time < 100)
-graph_plot2(exp2)
+#graph_plot2(exp2)
 exp3 = subset(exp3, time < 100)
-graph_plot2(exp3)
+#graph_plot2(exp3)
 exp5 = subset(exp5, time < 100)
-graph_plot2(exp5)
+t = graph_plot2(exp5)
 
-exp2.1 = exp2[,c("Target.Cell","time","R1",'R2','R3','R4')]
-exp3.1 = exp3[,c("Target.Cell","time","R1",'R2','R3','R4')]
-exp5.1 = exp5[,c("Target.Cell","time","R1",'R2','R3','R4')]
 
-colnames(exp3.1)[3:6] = c("R5",'R6','R7','R8')
-colnames(exp5.1)[3:6] = c("R9",'R10','R11','R12')
-
-t = merge(exp2.1,exp3.1, by = c('Target.Cell','time'), all = T)
-t = merge(t,exp5.1, by = c('Target.Cell','time'), all = T)
-t$mean <- rowMeans(t[, grep("R[0-12]", names(t), value = TRUE) ], na.rm = TRUE)
-t$sd <- apply(t[, grep("R[0-12]", names(t), value = TRUE) ], 1, sd)
-t$se <- apply(t[, grep("R[0-12]", names(t), value = TRUE) ], 1, std.error)
-graph_plot(t)
+#Figure for manuscript
+ggsave('/Users/luongtt/Desktop/Final_figures/xcelligence.png', plot = t, width = 90, height = 55, units = 'mm', device = 'png', dpi = 450)
 
 
 
@@ -244,17 +230,45 @@ graph_plot(t)
 
 library(nlme)
 
+exp2 = subset(exp2, time >= 25 & time <= 75)
+#graph_plot2(exp2)
+exp3 = subset(exp3, time >= 25 & time <= 75)
+#graph_plot2(exp3)
+exp5 = subset(exp5, time >= 25 & time <= 75)
+#graph_plot2(exp4)
+
+
 status.pairs <- data.frame(pair1 = c("pLKO.5", "shRNA_43"),
                            pair2 = c("pLKO.5", "shRNA_46"),
                            pair3 = c("pLKO.5", "shRNA_48"))
 
+#check whether there's a linear relationship in given time frame
+get_linear = function(d){
+  tested_df = d
+  df = as.data.frame(matrix(nrow = length(unique(tested_df$Target.Cell)), ncol = 2))
+  rownames(df) = unique(tested_df$Target.Cell)
+  colnames(df) = c('r.squared','pval')
+  
+  for (i in unique(tested_df$Target.Cell)){
+    sub = subset(tested_df, Target.Cell == i)
+    linear = lm(formula = mean ~ time, data = sub)
+    df[i,'r.squared'] = summary(linear)$r.squared
+    df[i,'pval'] = summary(linear)$coefficients[,4][['time']]
+    rm(sub)
+    rm(linear)
+  }
+  return(df)
+}
 
+exp2l = get_linear(exp2)
+exp3l = get_linear(exp3)
+exp5l = get_linear(exp5)
 
+#stat test to get beta and p-value, p-value is represented as 'P_fitb_trea', beta is 'b_fitb_trea'
 stat_test = function(df){
   lme_df.byStatus <- data_frame()
   for ( pair in names(status.pairs) ) {
     df2 = df
-    df2 = subset(df2, time > 24)
     df2$time = df2$time*60
     
     model.tmp <- df2[ which(df2$Target.Cell %in% status.pairs[[pair]] ), ]
@@ -264,6 +278,119 @@ stat_test = function(df){
                                 variable.name = "ID", 
                                 value.name = "count")
     
+    table(model.tmp$ID)
+    model.tmp$ID = paste(model.tmp$ID, model.tmp$Target.Cell, sep = '_')
+    ## Effect of treatment on cell count trajectory
+    fita <- lme(count ~ time,
+                random = ~ 1 | ID, method = "ML", data=model.tmp)
+    lme.tmp <- summary(fita)
+    print(lme.tmp$tTable)
+    #sjPlot::tab_model(fita)
+    
+    fitb <- lme(count ~ time + Target.Cell,
+                random = ~ 1 | ID, method = "ML", data=model.tmp)
+    lme.tmp <- summary(fitb)
+    print(lme.tmp$tTable)
+    # sjPlot::tab_model(fitb)
+    
+    # fitc <- lme(count ~ time * status,
+    #             random = ~ 1 | ID, method = "ML", data=model.tmp)
+    # lme.tmp <- summary(fitc)
+    # print(lme.tmp$tTable)
+    # # sjPlot::tab_model(fitc)
+    
+    # fitb <- lme(count ~ time * status,
+    #             random = ~ 1 | ID, method = "ML", data=model.tmp)
+    # lme.tmp <- summary(fitb)
+    # print(lme.tmp$tTable)
+    # # sjPlot::tab_model(fitb)
+    
+    anova.fit <- data.frame(anova(fita,fitb))
+    anova.fit
+    
+    # create temporary data frame
+    df.lm <- data.frame(cell_line = 'A549',
+                        pair = paste0(status.pairs[,pair][1], " and ", status.pairs[,pair][2]),
+                        
+                        b_fita_time = coef(summary(fita))[2,1],
+                        SE_fita_time = coef(summary(fita))[2,2],
+                        P_fita_time = coef(summary(fita))[2,5],
+                        
+                        b_fitb_time = coef(summary(fitb))[2,1],
+                        SE_fitb_time = coef(summary(fitb))[2,2],
+                        P_fitb_time = coef(summary(fitb))[2,5],
+                        
+                        b_fitb_trea = coef(summary(fitb))[3,1],
+                        SE_fitb_trea = coef(summary(fitb))[3,2],
+                        P_fitb_trea = coef(summary(fitb))[3,5],
+                        
+                        
+                        model_fita_AIC = anova.fit[1,4],
+                        model_fitb_AIC = anova.fit[2,4],
+                        model_fita_BIC = anova.fit[1,5],
+                        model_fitb_BIC = anova.fit[2,5],
+                        P_anova = anova.fit[2,9],
+                        
+                        stringsAsFactors = FALSE)
+    
+    lme_df.byStatus <- rbind(lme_df.byStatus, df.lm)
+    
+  }
+  return(lme_df.byStatus)
+}
+
+exp2_stat = stat_test(exp2)
+exp3_stat = stat_test(exp3)
+exp5_stat = stat_test(exp5)
+
+
+
+#need to get rid of one techincal replicate from each experiment, modifying codes to fit that
+exp1 = make_df('Attempt_1')
+exp1 = subset(exp1, time < 100)
+exp1[which(exp1$Target.Cell == 'pLKO.5'),'R2'] <- NA
+exp1[which(exp1$Target.Cell == 'pLKO.5'),'mean'] <- rowMeans(exp1[which(exp1$Target.Cell == 'pLKO.5'), c(3,5,6)])
+exp1[which(exp1$Target.Cell == 'pLKO.5'),'sd'] <- apply(exp1[which(exp1$Target.Cell == 'pLKO.5'), c(3,5,6)], 1, sd)
+exp1[which(exp1$Target.Cell == 'pLKO.5'),'se'] <- apply(exp1[which(exp1$Target.Cell == 'pLKO.5'), c(3,5,6)], 1, std.error)
+
+#graph_plot(exp1)
+#graph_plot2(exp1)
+
+exp4 = make_df('Attempt_4')
+exp4 = subset(exp4, time < 100)
+exp4[which(exp4$Target.Cell == 'shRNA_43'),'R1'] <- NA
+exp4[which(exp4$Target.Cell == 'shRNA_43'),'mean'] <- rowMeans(exp4[which(exp4$Target.Cell == 'shRNA_43'), c(4,5,6)])
+exp4[which(exp4$Target.Cell == 'shRNA_43'),'sd'] <- apply(exp4[which(exp4$Target.Cell == 'shRNA_43'), c(4,5,6)], 1, sd)
+exp4[which(exp4$Target.Cell == 'shRNA_43'),'se'] <- apply(exp4[which(exp4$Target.Cell == 'shRNA_43'), c(4,5,6)], 1, std.error)
+#graph_plot(exp4)
+#graph_plot2(exp4)
+
+## statistical tests ##
+
+exp1 = subset(exp1, time >= 25 & time <= 75)
+#graph_plot2(exp1)
+exp4 = subset(exp4, time >= 25 & time <= 75)
+#graph_plot2(exp4)
+
+exp1l = get_linear(exp1)
+exp4l = get_linear(exp4)
+
+#stat test to get beta and p-value, p-value is represented as 'P_fitb_trea', beta is 'b_fitb_trea'
+stat_test2 = function(df){
+  lme_df.byStatus <- data_frame()
+  for ( pair in names(status.pairs) ) {
+    df2 = df
+    df2$time = df2$time*60
+    
+    model.tmp <- df2[ which(df2$Target.Cell %in% status.pairs[[pair]] ), ]
+    names(model.tmp)
+    
+    model.tmp <- reshape2::melt(model.tmp, id.vars = c("mean", "sd", "se", "time", "Target.Cell"),
+                                variable.name = "ID", 
+                                value.name = "count")
+    
+    model.tmp = model.tmp[complete.cases(model.tmp),]
+    model.tmp$ID = paste(model.tmp$ID,model.tmp$Target.Cell,sep = '_')
     table(model.tmp$ID)
     
     ## Effect of treatment on cell count trajectory
@@ -309,7 +436,7 @@ stat_test = function(df){
                         b_fitb_trea = coef(summary(fitb))[3,1],
                         SE_fitb_trea = coef(summary(fitb))[3,2],
                         P_fitb_trea = coef(summary(fitb))[3,5],
-
+                        
                         
                         model_fita_AIC = anova.fit[1,4],
                         model_fitb_AIC = anova.fit[2,4],
@@ -325,66 +452,5 @@ stat_test = function(df){
   return(lme_df.byStatus)
 }
 
-exp2_stat = stat_test(exp2)
-exp3_stat = stat_test(exp3)
-exp5_stat = stat_test(exp5)
-
-# # for Experiment 1
-# write.csv(lme_df.byStatus, file = "LME_xCELLigence_byStatus_FBS.experiment_time_all_01162023.csv", row.names = FALSE)
-v1 = c(exp2_stat[1,11],exp3_stat[1,11],exp5_stat[1,11])
-v2 = c(exp2_stat[2,11],exp3_stat[2,11],exp5_stat[2,11])
-v3 = c(exp2_stat[3,11],exp3_stat[3,11],exp5_stat[3,11])
-fisherIntegration  <- function (vector){
-  my_length=length(vector)
-  deg_free=my_length*2
-  y=-2*sum(log(vector))
-  p.val <- 1-pchisq(y, df = deg_free);
-  p.val=as.numeric(p.val);
-  return(p.val)
-}
-
-graph_cellindex = function(e){
-  ggplot(e, aes(x=time, y=mean, colour=Target.Cell, group=Target.Cell)) +
-  geom_line(aes(colour=Target.Cell), size = .5) +
-  #geom_ribbon(aes(ymin = mean - sd, ymax = mean + sd, fill = Target.Cell), size = .5) +
-  # scale_colour_discrete(name = "class") +
-  scale_color_manual(values=c("#FBB4AE", "#E41A1C", "#B3CDE3", "#377EB8")) + # red and blue
-  labs(x= "Time (hours)",
-       y = "Cell Index, xCELLigence",
-       colour = 'Condition') +
-  
-  # scale_y_continuous(breaks = seq(0,4,0.5),
-  #                    labels = seq(0,4,0.5),
-  #                    limits = c(-0.05,4)) +
-  # scale_x_continuous(breaks = seq(0,300,50),
-  #                    labels = seq(0,300,50),
-  #                    limits = c(0,300)) +
-  # scale_y_log10(breaks = 10,
-  #               expand = c(0, 0),
-  #               limits = c(0.02, 100)) +
-  # scale_y_log10() +
-  
-  theme_bw() +
-  theme(panel.border = element_rect(linetype = "solid",
-                                    colour = "black", size = 0.25),
-        legend.position = "right",
-        axis.line.x = element_line(size = 0.25, colour = "black"),
-        axis.line.y = element_line(size = 0.25, colour = "black"),
-        axis.line = element_line(size = 1, color = "black"),
-        axis.ticks.length = unit(0.15, "cm"),
-        axis.ticks = element_line(size = 0.25, color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "white",
-                                        size = 0, colour = "black"),
-        axis.text.x = element_text(colour = "black", size = 12), 
-        axis.text.y = element_text(colour = "black", size = 12),
-        axis.title.x = element_text(colour = "black", face = "plain", size = 14,
-                                    margin = margin(10,0,0,0)),
-        axis.title.y = element_text(colour = "black", face = "plain", size = 14,
-                                    margin = margin(0,10,0,0)))
-}
-
-
-
-
+exp1_stat = stat_test2(exp1)
+exp4_stat = stat_test2(exp4)
