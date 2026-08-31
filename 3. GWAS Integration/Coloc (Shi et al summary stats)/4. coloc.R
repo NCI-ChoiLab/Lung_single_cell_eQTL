@@ -13,7 +13,7 @@ gwas = read.table('/data/Choi_lung/TTL/Colocalization/jianxins/hg38_asn/asian.lu
 
 
 ct = readRDS('/data/Choi_lung/TTL/files_for_JC_2410/ct.rds')
-ss = c(96,92,127,128,124,126,63,128,127,126,127,128,57,123,58,128,82,
+ss = c(96,92,127,128,124,126,128,63,127,126,127,128,57,123,58,128,82,
        120,117,126,111,128,82,101,48,125,128,128,123,82,127,114,89)
 loci = list.files('/data/Choi_lung/TTL/files_for_JC_2501/sliced_Shi_sig/')
 not_sig = c('4p13','4q32.1','4q32.2','7q31.33','9p21.3')
